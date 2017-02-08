@@ -41,10 +41,69 @@ Your browser does not support the HTML5 canvas tag.
         ctx.stroke();
     }
     
-    ctx.beginPath();
-    ctx.moveTo(Math.random()*500,Math.random()*500);
-    ctx.lineTo(Math.random()*500,Math.random()*500);
-    ctx.stroke();
+    function badSolve() {
+        var x1,x2,y1,y2;
+        
+        var solved = false;
+        
+        var result = [];
+        
+        while (!solved) {
+            x1 = Math.random()*500;
+            y1 = Math.random()*500;
+            x2 = Math.random()*500;
+            y2 = Math.random()*500;
+            
+            for (var i = 0; i < items; i++) {
+                result[i] = [];
+                result[i][0] = (itemLocations[i].x >= x1) ? 1:0;
+                result[i][1] = (itemLocations[i].x >= x2) ? 1:0;
+                result[i][2] = (itemLocations[i].y >= y1) ? 1:0;
+                result[i][3] = (itemLocations[i].y >= y2) ? 1:0;
+            }
+
+            if (arrayCompare(result[0],result[1]) && arrayCompare(result[0],result[2]) &&
+               arrayCompare(result[3],result[4]) && arrayCompare(result[3],result[5]) &&
+               !arrayCompare(result[0],result[3])){
+                solved = true;
+            }
+        }
+        
+        alert(result[0]);
+        alert(result[1]);
+        alert(result[2]);
+        drawLine(x1,y1,x2,y2);
+        
+    }
+    
+    function drawLine(x1,y1,x2,y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1,y1);
+        ctx.lineTo(x2,y2);
+        ctx.stroke();
+    }
+    
+    function arrayCompare (array1, array2) {
+        if (!array1 || !array2)
+            return false;
+
+        if (array1.length != array2.length)
+            return false
+
+        for (var i = 0; i < array1.length; i++) {
+            if (array1[i] instanceof Array && array2[i] instanceof Array) {
+                if (!(arrayCompare(array1[i],array2[i])))
+                    return false;
+            }
+
+            else if (!(array1[i] == array2[i]))
+                return false;
+        }
+
+        return true;
+    }
+    
+    badSolve();
 </script>
 </body>
 </html>
