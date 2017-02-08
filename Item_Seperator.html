@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .button {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .buttonText {
+        font-size:20px;
+        font-family: Baskerville;
+    }
+</style>
+<body>
+
+<canvas id='myCanvas' 
+width='500' height='500'
+style='border:1px solid #d3d3d3;'>
+Your browser does not support the HTML5 canvas tag.    
+</canvas>
+  
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    
+    var centerX,centerY,items;
+    var radius = 20;
+    var items = 6;
+    var itemLocations = [{x:100,y:100},{x:400,y:100},{x:200,y:200},{x:200,y:400},{x:300,y:300},{x:400,y:400}];
+    
+    for (var i = 0; i < items; i++) {
+        centerX = itemLocations[i].x;
+        centerY = itemLocations[i].y;
+        ctx.beginPath();
+        ctx.arc(centerX,centerY,radius,0,2*Math.PI);
+        if (i < items/2)
+            ctx.fillStyle = 'green';
+        else 
+            ctx.fillStyle = 'blue';
+        ctx.fill();
+        ctx.stroke();
+    }
+    
+    ctx.beginPath();
+    ctx.moveTo(Math.random()*500,Math.random()*500);
+    ctx.lineTo(Math.random()*500,Math.random()*500);
+    ctx.stroke();
+</script>
+</body>
+</html>
